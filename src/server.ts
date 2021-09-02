@@ -17,8 +17,10 @@ app.get("/", (req, res) => {
 app.post("/mail", (req, res) => {
     let body = req.body;
     let fromEmail : string;
+    let password : string;
     fromEmail = body.fromEmail ? body.fromEmail : config.fromEmail;
-    const mailService = new gmailService(fromEmail);
+    password = body.password ? body.password : config.password;
+    const mailService = new gmailService(fromEmail, password);
     mailService.sendMail(body.toEmail, body.title, body.content)
     .then(message => {
         res.status(200);
